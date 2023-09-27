@@ -8,16 +8,38 @@ export default{
     data(){
         return{
             projects : [ ],
+            pageCurrent : 1 ,
+            totalPage : 1 ,
         }
     },
     methods:{
-
+        nextPage(){
+            if(this.pageCurrent<this.totalPage){
+                this.pageCurrent++;
+                this.change();
+            }
+        },
+        prevPage(){
+            if(this.pageCurrent>1){
+            this.pageCurrent--;
+            this.change();
+            }
+        },
+        change(){
+            axios.get('http://localhost:8000/api/projects',{
+            params:{
+                page:this.pageCurrent
+            }
+            })
+            .then(res=>{
+                this.projects = res.data.projects.data;
+                //last_page ci restituisce l'ultimo numero della chiamata
+                this.totalPage = res.data.projects.last_page;
+            })
+        }
     },
     created(){
-        axios.get('http://localhost:8000/api/projects')
-        .then(res=>{
-            this.projects = res.data.projects.data
-        })
+        this.change()
     },
     
 }
@@ -27,24 +49,22 @@ export default{
 
     <main>
         <div class="row">
-            <div class="card border rounded-2 bg-primary" v-for="(project , index) in projects" :key="index">
-                <div>
-                    {{ project.title }}
-                </div>
-                <div>
-                    {{ project.slug }}
-                </div>
-                <div>
-                    {{ project.creation_date }}
-                </div>
-                <div>
-                    {{ project.url }}
-                </div>
-                <div>
-                    {{ project.description }}
+            <div class="col" v-for="(project, index) in projects" :key="index" >
+                <div class="card bg-primary" style="width: 18rem;">
+                    <img :src="project.thumb" class="card-img-top" :alt="project.title">
+                    <div class="card-body">
+                        <p class="card-text">{{ project.title }}</p>
+                        <p class="card-text">{{ project.creation_date }}</p>
+                    </div>
                 </div>
             </div>
-        </div>
+        </div>    
+        <button @click="prevPage()" class="btn btn-primary w-25 m-2" >
+                    Prev
+        </button>
+        <button @click="nextPage()" class="btn btn-primary w-25" >
+                    Next
+        </button>
     </main>
 
 </template>
