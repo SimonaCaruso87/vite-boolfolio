@@ -1,40 +1,47 @@
 <script>
-
+//import
 import HeaderComponent from './components/HeaderComponent.vue';
 import MainComponent from './components/MainComponent.vue';
 import FooterComponent from './components/FooterComponent.vue';
-import axios from 'axios';
-import { store } from './store.js';
 
-export default{
-  name:"App",
-  components:{
-     HeaderComponent ,
-     MainComponent ,
-     FooterComponent
-  },
-  data(){
-    return{
+
+   export default {
+    data() {
+      return{
+
+      }
+    },
+    components: {
+      HeaderComponent,
+      MainComponent,
+      FooterComponent
+    },
+    created(){
 
     }
-  },
-  methods:{
-
   }
-}
 </script>
 
+
+
 <template>
+  <div>
+    <HeaderComponent/>
 
-<HeaderComponent />
+    <MainComponent/>
 
-<MainComponent />
+    <FooterComponent/>
 
-<FooterComponent />
-
-
+  </div>
 </template>
 
+
+
+
 <style lang="scss">
-@use "assets/scss/main" as*;
+@use 'assets/scss/main.scss';
+
+
+
+
 </style>

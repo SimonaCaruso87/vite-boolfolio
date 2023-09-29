@@ -1,79 +1,51 @@
 <script>
+//import
 
-import axios from 'axios';
 
-
-export default{
-    name: "MainComponent",
-    data(){
-        return{
-            projects : [ ],
-            pageCurrent : 1 ,
-            totalPage : 1 ,
-        }
+   export default {
+    data() {
+      return{
+        //dati
+      }
     },
-    methods:{
-        nextPage(){
-            if(this.pageCurrent<this.totalPage){
-                this.pageCurrent++;
-                this.change();
-            }
-        },
-        prevPage(){
-            if(this.pageCurrent>1){
-            this.pageCurrent--;
-            this.change();
-            }
-        },
-        change(){
-            axios.get('http://localhost:8000/api/projects',{
-            params:{
-                page:this.pageCurrent
-            }
-            })
-            .then(res=>{
-                this.projects = res.data.projects.data;
-                //last_page ci restituisce l'ultimo numero della chiamata
-                this.totalPage = res.data.projects.last_page;
-            })
-        }
+    methods: {
+        //function
     },
-    created(){
-        this.change()
+    components: {
+        //components
     },
+    props:{
+        //utilizzo per file padre
+    }
     
-}
+    
+  }
 </script>
+
 
 <template>
 
     <main>
-        <div class="row">
-            <div class="col" v-for="(project, index) in projects" :key="index" >
-                <div class="card bg-primary" style="width: 18rem;">
-                    <img :src="project.thumb" class="card-img-top" :alt="project.title">
-                    <div class="card-body">
-                        <p class="card-text">{{ project.title }}</p>
-                        <p class="card-text">{{ project.creation_date }}</p>
-                    </div>
-                </div>
-            </div>
-        </div>    
-        <button @click="prevPage()" class="btn btn-primary w-25 m-2" >
-                    Prev
-        </button>
-        <button @click="nextPage()" class="btn btn-primary w-25" >
-                    Next
-        </button>
+
+      <router-view></router-view>
+      
     </main>
 
 </template>
 
+
+
+
 <style lang="scss" scoped>
+@use '../assets/scss/variables.scss' as *;
 
 main{
-    padding:40px;
-    text-align: center;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    overflow: auto; /* Abilita lo scorrimento del main se il contenuto è troppo lungo */
+    height: 100%;
+
 }
+
 
 </style>

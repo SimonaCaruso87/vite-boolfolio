@@ -1,15 +1,11 @@
-@use "partials/variables" as*;
-@use "partials/mixins" as *;
+@use 'variables.scss' as *;
+
+// Import all of Bootstrap's CSS
 @import "bootstrap/scss/bootstrap";
 
-main {
-    color: $main-color
-}
-
-p {
-    @include main-coloring;
-}
-
-ul {
-    border: 1px solid $main-color;
+*{
+    margin: 0 auto;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, Helvetica, sans-serif;
 }
