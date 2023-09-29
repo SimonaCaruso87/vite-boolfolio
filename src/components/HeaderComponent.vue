@@ -15,7 +15,7 @@ export default{
 <template>
 
     <header>
-        <h1 class="text-center text-warning">Mary's Portfolio</h1>
+        <h1 class="text-center text-warning">Mary'sPortfolio Mary</h1>
     </header>
 
 </template>
