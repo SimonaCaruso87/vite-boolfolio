@@ -6,12 +6,20 @@ export default {
 
 <template>
   <nav>
-    <router-link :to="{name : 'home'}">
-      Home
+    <router-link :to="{name : 'home'}" class="center">
+      <h1>Home</h1>
+    </router-link>
+    <!-- aggiungiamo il nostro componente contact 3)-->
+    <router-link :to="{name : 'contact'}" class="center">
+      <h1>Contact</h1>
     </router-link>
   </nav>
 </template>
 
-<style >
+<style>
+.center{
+
+    text-align: center;
+}
   
 </style>

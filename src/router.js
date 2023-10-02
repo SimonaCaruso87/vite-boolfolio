@@ -2,7 +2,8 @@ import { createRouter, createWebHistory  } from "vue-router";
 
 import HomePage from './pages/HomePage.vue';
 import SinglePostPage from './pages/SinglePostPage.vue';
-import ContactPage from './pages/contactPage.vue';
+//importiamo la rotta per il component email 2)
+import ContactPage from './pages/ContactPage.vue';
 import NotFoundPage from './pages/NotFoundPage.vue';
 
 
@@ -19,15 +20,18 @@ const router = createRouter({
       name:'single',
       component:SinglePostPage,
     },
+    //rotta per email 1)
+    {
+        path:'/contact',
+        name:'contact',
+        component:ContactPage,
+    },
     {
       path:'/:pathMatch(.*)*',
       name:'NotFound',
       component:NotFoundPage,
-    },{
-        path:'/contact',
-        name:'contact',
-        component:HomePage,
-      }
+    },
+
   ]
 });
 
