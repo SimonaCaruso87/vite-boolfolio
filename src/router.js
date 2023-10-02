@@ -1,35 +1,29 @@
-import { createRouter, createWebHistory } from 'vue-router';
+import { createRouter, createWebHistory  } from "vue-router";
 
 import HomePage from './pages/HomePage.vue';
-import MainProjects from './pages/MainProjects.vue';
-import SingleProject from './pages/SingleProject.vue';
-import NotFound from './pages/NotFound.vue';
+import SinglePostPage from './pages/SinglePostPage.vue';
+import NotFoundPage from './pages/NotFoundPage.vue';
 
 
 const router = createRouter({
-
-    history: createWebHistory(),
-    routes: [
+  history:createWebHistory(),
+  routes:[
     {
-        path: '/',
-        name: 'home',
-        component: HomePage
+      path:'/',
+      name:'home',
+      component:HomePage,
     },
     {
-        path: '/projects',
-        name: 'projects',
-        component: MainProjects
+      path:'/single/:id',
+      name:'single',
+      component:SinglePostPage,
     },
     {
-        path: '/project/:slug',
-        name: 'project',
-        component: SingleProject
-    },
-    {
-        path: '/:pathMatch(.*)*',
-        name: 'not-found',
-        component: NotFound
-    },
-    ]
+      path:'/:pathMatch(.*)*',
+      name:'NotFound',
+      component:NotFoundPage,
+    }
+  ]
 });
+
 export { router };

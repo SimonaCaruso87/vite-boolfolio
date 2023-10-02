@@ -1,47 +1,27 @@
 <script>
-//import
-import HeaderComponent from './components/HeaderComponent.vue';
-import MainComponent from './components/MainComponent.vue';
-import FooterComponent from './components/FooterComponent.vue';
+import HeaderComponent from './components/HeaderComponents/HeaderComponent.vue';
+import MainComponent from './components/MainComponents/MainComponent.vue';
+import FooterComponent from './components/FooterComponents/FooterComponent.vue';
 
-
-   export default {
-    data() {
-      return{
-
-      }
-    },
-    components: {
-      HeaderComponent,
-      MainComponent,
-      FooterComponent
-    },
-    created(){
-
-    }
+export default {
+  data(){
+    return {}
+  },
+  components:{
+    HeaderComponent,
+    FooterComponent ,
+    MainComponent 
   }
+}
 </script>
 
-
-
 <template>
-  <div>
-    <HeaderComponent/>
+  <HeaderComponent />
 
-    <MainComponent/>
+  <MainComponent />
 
-    <FooterComponent/>
-
-  </div>
+  <FooterComponent />
 </template>
 
-
-
-
-<style lang="scss">
-@use 'assets/scss/main.scss';
-
-
-
-
+<style scoped>
 </style>

@@ -1,73 +1,102 @@
 <script>
-export default {
-    data() {
-      return{
-        //dati
+  import axios from 'axios';
+  import CardComponent from '../components/MainComponents/CardComponent.vue';
+  export default {
+   
+    data(){
+      return {
+        projects:[],
+        currentPage:1,
+        totalPages:1,
+        loading:false
       }
     },
-    methods: {
-        //function
+    components:{
+      CardComponent
+
     },
-    components: {
-        //components
+    methods:{
+      changePage(buttonTipe){
+        if(buttonTipe == 'prev' && this.currentPage > 1 && !this.loading){
+          this.currentPage--;
+          this.getData();
+        }else if(buttonTipe == 'next' && this.currentPage < this.totalPages && !this.loading){
+          this.currentPage++;
+          this.getData();
+        }
+      },
+      getData(){
+        this.loading = true;
+        axios.get('http://127.0.0.1:8000/api/project',{
+          params:{
+            page: this.currentPage,
+          }
+        })
+        .then(res =>{
+          this.projects =  res.data.results.data;
+          this.currentPage = res.data.results.current_page;
+          this.totalPages = res.data.results.last_page;
+          this.loading = false;
+        });
+      }
     },
-    props:{
-        //utilizzo per file padre
-    }
-    
-    
+    mounted() {
+     this.getData();
+    },
   }
 </script>
 
-
-
 <template>
-    <section>
-        <div class="jumbotron position-relative">
-            
-            <div class="title">
-                <h2>
-                    Simona Caruso
-                    <h6 class="text-white">
-                        Web Developer
-                    </h6>
-                </h2>
+  <div>
+    <h1>Lista progetti</h1>
+  </div>
 
-                <li class="btn btn-light">
-                    <router-link :to="{ name: 'projects'}" class="nav-link"> 
-                        My projects
-                    </router-link>
-                </li>
-            </div>
-            
-            <img src="../../public/img/liquid-cheese.png" alt="">
-
-        </div>
-        
-    </section>
+  <div class="card-container">   
+    <CardComponent
+      v-for="(project, index) in projects" 
+      :key="index"
+      :projectObj="project"
+    />
+  </div>
+  <p class="pagination">pagina {{ currentPage }}/{{ totalPages }}</p>
+  <div class="button-wrapper">
+    <button @click="changePage('prev')">prev</button>
+    <button @click="changePage('next')">next</button>
+  </div>
 </template>
 
-<style lang="scss" scoped>
+<style scoped >
+  .card-container{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    padding-inline:20px ;
+  }
 
-    .jumbotron{
-        width: 100%;
-        height: 100%;
+  .pagination{
+    font-weight: bold;
+    text-transform: capitalize;
+    text-align: center;
+    margin-block: 20px;
+    font-size: 24px;
+  }
+  .button-wrapper{
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+  }
 
-        img{
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
+  .button-wrapper button{
+    padding: 15px 20px;
+    text-transform: uppercase;
+    background-color: forestgreen;
+    border: 0;
+    color:#fff;
+    cursor: pointer;
+    transition: background-color 200ms ease-in-out ;
+  }
 
-        .title{
-            position: absolute;
-            top: 50%;
-            left: 40%;
-            z-index: 4;
-
-            h2{
-                text-shadow: 1px 1px 2px #D0B101;
-            }
-        }
-    }
+  .button-wrapper button:hover{
+    background-color: rgb(69, 201, 69);
+  }
 </style>
